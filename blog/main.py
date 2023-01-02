@@ -23,6 +23,12 @@ def create(request: schemas.Blog, db: Session = Depends(get_db)):
     db.refresh(new_blog)
     return new_blog
 
+@app.delete('/blog/{id}')
+def destroy(id, db: Session = Depends(get_db)):
+    db.query(models.Blog).filter(models.Blog.id == id).delete(synchronize_session=False)
+    db.commit()
+    return 'done'
+
 
 @app.get('/blog')
 def all(db: Session = Depends(get_db)):
