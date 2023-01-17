@@ -18,17 +18,9 @@ get_db = database.get_db
 def all(db: Session = Depends(database.get_db), current_user: schemas.User = Depends(oauth2.get_current_user)):
     return blog.get_all(db)
 
-@router.get('/articles/', response_model = List[schemas.ShowArticle])
-def all(db: Session = Depends(database.get_db)):
-    return blog.get_all_articles(db)
-
 @router.post('/', status_code=status.HTTP_201_CREATED)
 def create(request: schemas.Blog, db: Session = Depends(database.get_db)):
     return blog.create(request, db)
-
-@router.post('/articles/', status_code=status.HTTP_201_CREATED)
-def create(request: schemas.Article, db: Session = Depends(database.get_db)):
-    return blog.create_article(request, db)
 
 @router.delete('/{id}', status_code=status.HTTP_204_NO_CONTENT)
 def destroy(id, db: Session = Depends(get_db)):

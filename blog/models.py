@@ -10,7 +10,7 @@ class Article(Base):
     user_id = Column(Integer, ForeignKey('users.id'))
     blog_id = Column(Integer, ForeignKey('blogs.id'))
     blog = relationship("Blog", back_populates='articles')
-    # creator = relationship("User", back_populates='blogs')
+    author = relationship("User", back_populates='articles')
     
 class Blog(Base):
     __tablename__ = 'blogs'
@@ -32,6 +32,7 @@ class User(Base):
     password = Column(String)
     
     blogs = relationship("Blog", back_populates='creator')
+    articles = relationship("Article", back_populates='author')
     
 
     

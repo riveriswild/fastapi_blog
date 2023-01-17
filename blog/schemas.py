@@ -15,9 +15,35 @@ class User(BaseModel):
     name: str
     email: str
     password: str
-    
 
+class ViewArticle(BaseModel):
+    id: int
+    title: str
+    body: str
+    class Config():
+        orm_mode = True  
+class ShowUser(BaseModel):
+    name: str
+    email: str
+    blogs: List[Blog] = []
+    articles: List[ViewArticle] = []
+    class Config():
+        orm_mode = True
+
+class SimpleUser(BaseModel):
+    id: int
+    name: str
+    class Config():
+        orm_mode = True
+        
 class Article(BaseModel):
+    id: int
+    title: str
+    body: str
+    author: SimpleUser
+    class Config():
+        orm_mode = True
+class CreateArticle(BaseModel):
     id: int
     title: str
     body: str
@@ -28,13 +54,6 @@ class ShowArticle(Article):
     title: str
     body: str
     
-
-class ShowUser(BaseModel):
-    name: str
-    email: str
-    blogs: List[Blog] = []
-    class Config():
-        orm_mode = True
         
 class ShowBlog(Blog):
     creator: ShowUser
