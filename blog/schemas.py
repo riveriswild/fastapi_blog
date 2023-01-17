@@ -17,6 +17,18 @@ class User(BaseModel):
     password: str
     
 
+class Article(BaseModel):
+    id: int
+    title: str
+    body: str
+    class Config():
+        orm_mode = True
+
+class ShowArticle(Article):
+    title: str
+    body: str
+    
+
 class ShowUser(BaseModel):
     name: str
     email: str
@@ -26,6 +38,7 @@ class ShowUser(BaseModel):
         
 class ShowBlog(Blog):
     creator: ShowUser
+    articles: List[Article] = []
     class Config():
         orm_mode = True
         
